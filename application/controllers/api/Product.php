@@ -8,6 +8,7 @@ class Product extends REST_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('Product_model');
+        $this->methods['index_get']['limit'] = 1;
     }
 
     // GET METHOD
@@ -88,5 +89,5 @@ class Product extends REST_Controller {
             ], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-    
+
 }
