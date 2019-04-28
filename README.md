@@ -1,2 +1,1 @@
-# Simple Backend API
-Using Codeigniter
+# Working with RESTful Services in CodeIgniter
