@@ -4,26 +4,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-class Product extends REST_Controller {
+class Location extends REST_Controller {
     function __construct(){
         parent::__construct();
-        $this->load->model('Product_model');
+        $this->load->model('Location_model');
     }
 
     // GET METHOD
     public function index_get(){
         $id = $this->get('id');
         if ($id === NULL){
-            $product = $this->Product_model->getProduct();
+            $Location = $this->Location_model->getLocation();
         }else{
-            $product = $this->Product_model->getProduct($id);
+            $Location = $this->Location_model->getLocation($id);
         }
-        if ($product){
-            $this->response($product, REST_Controller::HTTP_OK);
+        if ($Location){
+            $this->response($Location, REST_Controller::HTTP_OK);
         }else{
             $this->response([
                 'status' => FALSE,
-                'message' => 'No product were found'
+                'message' => 'No Location were found'
             ], REST_Controller::HTTP_NOT_FOUND);
         }
     }
@@ -37,11 +37,11 @@ class Product extends REST_Controller {
                             'message' => 'need id'
                         ], REST_Controller::HTTP_BAD_REQUEST);
         }else{
-            if($this->Product_model->deleteProduct($id) > 0){
+            if($this->Location_model->deleteLocation($id) > 0){
                 $this->response([
                     'status' => TRUE,
                     'id' => $id,
-                    'messages' => 'Product delete'
+                    'messages' => 'Location delete'
                 ], REST_Controller::HTTP_NO_CONTENT);
             }else{
                         $this->response([
@@ -57,10 +57,10 @@ class Product extends REST_Controller {
         $data = [
             'name' => $this->post('name')
         ];
-        if($this->Product_model->createProduct($data) > 0){
+        if($this->Location_model->createLocation($data) > 0){
             $this->response([
                 'status' => TRUE,
-                'messages' => 'Product add'
+                'messages' => 'Location add'
             ], REST_Controller::HTTP_CREATED);
         }else{
             $this->response([
@@ -76,10 +76,10 @@ class Product extends REST_Controller {
         $data = [
             'name' => $this->put('name')
         ];
-        if($this->Product_model->updateProduct($data, $id) > 0){
+        if($this->Location_model->updateLocation($data, $id) > 0){
             $this->response([
                 'status' => TRUE,
-                'messages' => 'Product update'
+                'messages' => 'Location update'
             ], REST_Controller::HTTP_CREATED);
         }else{
             $this->response([
