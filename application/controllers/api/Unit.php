@@ -4,26 +4,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-class Product extends REST_Controller {
+class Unit extends REST_Controller {
     function __construct(){
         parent::__construct();
-        $this->load->model('Product_model');
+        $this->load->model('Unit_model');
     }
 
     // GET METHOD
     public function index_get(){
         $id = $this->get('id');
         if ($id === NULL){
-            $product = $this->Product_model->getProduct();
+            $Unit = $this->Unit_model->getUnit();
         }else{
-            $product = $this->Product_model->getProduct($id);
+            $Unit = $this->Unit_model->getUnit($id);
         }
-        if ($product){
-            $this->response($product, REST_Controller::HTTP_OK);
+        if ($Unit){
+            $this->response($Unit, REST_Controller::HTTP_OK);
         }else{
             $this->response([
                 'status' => FALSE,
-                'message' => 'No product were found'
+                'message' => 'No Unit were found'
             ], REST_Controller::HTTP_NOT_FOUND);
         }
     }
@@ -37,11 +37,11 @@ class Product extends REST_Controller {
                             'message' => 'need id'
                         ], REST_Controller::HTTP_BAD_REQUEST);
         }else{
-            if($this->Product_model->deleteProduct($id) > 0){
+            if($this->Unit_model->deleteUnit($id) > 0){
                 $this->response([
                     'status' => TRUE,
                     'id' => $id,
-                    'messages' => 'Product delete'
+                    'messages' => 'Unit delete'
                 ], REST_Controller::HTTP_NO_CONTENT);
             }else{
                         $this->response([
@@ -55,15 +55,12 @@ class Product extends REST_Controller {
     // POST METHOD
     public function index_post(){
         $data = [
-            'name' => $this->post('name'),
-            'type' => $this->post('type'),
-            'id_category' => $this->post('id_category'),
-            'id_units' => $this->post('id_units')
+            'name' => $this->post('name')
         ];
-        if($this->Product_model->createProduct($data) > 0){
+        if($this->Unit_model->createUnit($data) > 0){
             $this->response([
                 'status' => TRUE,
-                'messages' => 'Product add'
+                'messages' => 'Unit add'
             ], REST_Controller::HTTP_CREATED);
         }else{
             $this->response([
@@ -77,15 +74,12 @@ class Product extends REST_Controller {
     public function index_put(){
         $id = $this->put('id');
         $data = [
-            'name' => $this->put('name'),
-            'type' => $this->put('type'),
-            'id_category' => $this->put('id_category'),
-            'id_units' => $this->put('id_units')
+            'name' => $this->put('name')
         ];
-        if($this->Product_model->updateProduct($data, $id) > 0){
+        if($this->Unit_model->updateUnit($data, $id) > 0){
             $this->response([
                 'status' => TRUE,
-                'messages' => 'Product update'
+                'messages' => 'Unit update'
             ], REST_Controller::HTTP_CREATED);
         }else{
             $this->response([
