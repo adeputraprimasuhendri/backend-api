@@ -9,7 +9,7 @@ class Product extends REST_Controller {
         parent::__construct();
         $this->load->model('Product_model');
     }
-    // GET
+    // GET METHOD
     public function index_get(){
         $id = $this->get('id');
         if ($id === NULL){
@@ -26,7 +26,7 @@ class Product extends REST_Controller {
             ], REST_Controller::HTTP_NOT_FOUND);
         }
     }
-    // DELETE
+    // DELETE METHOD
     public function index_delete(){
         $id = $this->delete('id');
         if ($id === NULL){
@@ -50,7 +50,7 @@ class Product extends REST_Controller {
         }
     }
 
-    // POST
+    // POST METHOD
     public function index_post(){
         $data = [
             'id' => $this->post('id'),
