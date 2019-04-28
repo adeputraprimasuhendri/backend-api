@@ -6,14 +6,17 @@
             }else{
                 return $this->db->get_where('product', ['id'=> $id])->result_array();
             }
-            
         }
         public function deleteProduct($id){
-            $this->db->delete('product', ['id'=> $id]);
+            $this->db->delete('product', ['id' => $id]);
             return $this->db->affected_rows(); 
         }
         public function createProduct($data){
             $this->db->insert('product', $data);
+            return $this->db->affected_rows();  
+        }
+        public function updateProduct($data, $id){
+            $this->db->update('product', $data, ['id' => $id]);
             return $this->db->affected_rows();  
         }
     }

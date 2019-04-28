@@ -9,6 +9,7 @@ class Product extends REST_Controller {
         parent::__construct();
         $this->load->model('Product_model');
     }
+
     // GET METHOD
     public function index_get(){
         $id = $this->get('id');
@@ -26,6 +27,7 @@ class Product extends REST_Controller {
             ], REST_Controller::HTTP_NOT_FOUND);
         }
     }
+
     // DELETE METHOD
     public function index_delete(){
         $id = $this->delete('id');
@@ -53,10 +55,8 @@ class Product extends REST_Controller {
     // POST METHOD
     public function index_post(){
         $data = [
-            'id' => $this->post('id'),
             'name' => $this->post('name')
         ];
-
         if($this->Product_model->createProduct($data) > 0){
             $this->response([
                 'status' => TRUE,
@@ -68,6 +68,24 @@ class Product extends REST_Controller {
                 'message' => 'failed to create new data'
             ], REST_Controller::HTTP_BAD_REQUEST);
         }
+    }
 
+    // PUT METHOD
+    public function index_put(){
+        $id = $this->put('id');
+        $data = [
+            'name' => $this->put('name')
+        ];
+        if($this->Product_model->updateProduct($data, $id) > 0){
+            $this->response([
+                'status' => TRUE,
+                'messages' => 'Product update'
+            ], REST_Controller::HTTP_CREATED);
+        }else{
+            $this->response([
+                'status' => FALSE,
+                'message' => 'failed to update new data'
+            ], REST_Controller::HTTP_BAD_REQUEST);
+        }
     }
 }
